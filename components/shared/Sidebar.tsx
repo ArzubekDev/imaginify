@@ -20,7 +20,7 @@ const Sidebar = () => {
               {navLinks.map((item) => {
                 const isActive = item.href === pathname;
                 return (
-                  <li key={item.href} className={cn(`sidebar-nav_element group ${isActive ? 'bg-purple-linear text-white' : 'text-gray-700'}`)}>
+                  <li key={item.href} className={cn(`sidebar-nav_element group ${isActive ? 'bg-purple-500 text-white' : 'text-gray-700'}`)}>
                     <Link href={item.href} className="sidebar-nav_element-link">
                       <span>{item.label}</span>
                     </Link>
