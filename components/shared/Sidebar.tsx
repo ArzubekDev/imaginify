@@ -1,9 +1,16 @@
-import React from 'react'
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Sidebar = () => {
   return (
-    <aside>Sidebar</aside>
-  )
-}
+    <aside className="sidebar">
+      <div className="flex flex-col size-full gap-4">
+        <Link href={'/'} className="sidebar-logo">
+          <Image src={'/images/logo.png'} alt="logo" />
+        </Link>
+      </div>
+    </aside>
+  );
+};
 
-export default Sidebar
+export default Sidebar;
