@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.auth {
+  @apply flex items-center justify-center min-h-screen;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
