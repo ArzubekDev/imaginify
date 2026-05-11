@@ -1,4 +1,5 @@
 import Header from '@/components/shared/Header'
+import TransformationForm from '@/components/shared/TransformationForm';
 import { transformationTypes } from '@/constants'
 
 const AddTransformationTypePage = async ({ params }: { params: Promise<{ type: string }> }) => {
@@ -10,12 +11,14 @@ const AddTransformationTypePage = async ({ params }: { params: Promise<{ type: s
   if (!transformation) return null;
 
   return (
-    <section className="mt-10">
+    <>
       <Header 
         title={transformation.title} 
         subtitle={transformation.subtitle} 
       />
-    </section>
+
+      <TransformationForm/>
+    </>
   )
 }
 
