@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn('font-IBMPlex antialiased', IBMPlex.variable)}>
+    <html lang="en" className={cn(IBMPlex.className, 'antialiased')}>
       <body className="min-h-full flex flex-col"><ClerkProvider>
           {children}
         </ClerkProvider></body>
