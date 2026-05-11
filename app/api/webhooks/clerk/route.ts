@@ -36,7 +36,7 @@ export async function POST(request: Request) {
       'svix-signature': svix_signature,
     }) as WebhookEvent;
   } catch (error) {
-    return NextResponse.json({ error: 'Invalid webhook signature' }, { status: 400 });
+    return NextResponse.json({ error: error }, { status: 400 });
   }
 
   const { id } = event.data;
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
     );
   }
   if (eventType === 'user.updated') {
-    const { id, image_url, first_name, last_name, username } = event.data;
+    const { image_url, first_name, last_name, username } = event.data;
 
     const user = {
       firstName: first_name,
@@ -70,7 +70,9 @@ export async function POST(request: Request) {
       photo: image_url,
     };
 
+    if (!id) return new NextResponse('No ID provided', { status: 400 });
     await updateUserCredits(id, user);
+    
     return NextResponse.json({ message: 'User updated successfully' }, { status: 200 });
   }
 
@@ -86,4 +88,6 @@ export async function POST(request: Request) {
       { status: 200 },
     );
   }
+
+  return NextResponse.json({ message: 'Event type not handled' }, { status: 200 });
 }
