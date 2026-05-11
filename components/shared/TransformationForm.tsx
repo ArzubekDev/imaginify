@@ -3,9 +3,11 @@
 import {z} from 'zod';
 
 const formSchema = z.object({
-    name: z.string().min(2, 'Name must be at least 2 characters long'),
+    name: z.string().min(2).max(50),
 });
 const TransformationForm = () => {
+
+    
   return (
     <div>TransformationForm</div>
   )
