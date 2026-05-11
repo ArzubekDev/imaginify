@@ -39,7 +39,7 @@ const Sidebar = () => {
           </ul>
         </nav>
         <ul className="flex flex-col gap-2">
-         {navLinks.map((item) => {
+         {navLinks.slice(6).map((item) => {
             const isActive = item.href === pathname;
             return (
               <li
