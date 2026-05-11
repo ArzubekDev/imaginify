@@ -2,11 +2,12 @@
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { navLinks } from '@/constants';
 import { cn } from '@/lib/utils';
-import { Show, UserButton } from '@clerk/nextjs';
+import { Show, SignInButton, UserButton } from '@clerk/nextjs';
 import { Menu } from 'lucide-react';
 import { usePathname } from 'next/dist/client/components/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '../ui/button';
 
 const MobileNav = () => {
   const pathname = usePathname();
@@ -59,6 +60,11 @@ const MobileNav = () => {
               </nav>
             </SheetContent>
           </Sheet>
+        </Show>
+        <Show when="signed-out">
+          <Button asChild className="w-full bg-[#5b1cf0] hover:bg-[#4a16c4]">
+            <SignInButton mode="modal">Login</SignInButton>
+          </Button>
         </Show>
       </nav>
     </header>
