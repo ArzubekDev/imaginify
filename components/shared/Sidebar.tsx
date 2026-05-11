@@ -39,7 +39,7 @@ const Sidebar = () => {
           </ul>
         </nav>
         <ul className="flex flex-col gap-2">
-          {navLinks.slice(6).map((item) => {
+         {navLinks.map((item) => {
             const isActive = item.href === pathname;
             return (
               <li
@@ -59,7 +59,7 @@ const Sidebar = () => {
         <li className="">
           <Show when="signed-in">
             <div className="flex items-center gap-2 p-2">
-              <UserButton showName/>
+              <UserButton afterSwitchSessionUrl='/' showName/>
             </div>
           </Show>
           <Show when="signed-out">
