@@ -1,9 +1,10 @@
+import Header from '@/components/shared/Header'
 import React from 'react'
 
-const AddTransformationPage = () => {
+const AddTransformationTypePage = () => {
   return (
-    <div>AddTransformationPage</div>
+    <Header/>
   )
 }
 
-export default AddTransformationPage
+export default AddTransformationTypePage
