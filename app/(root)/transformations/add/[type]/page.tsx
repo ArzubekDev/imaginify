@@ -1,10 +1,22 @@
 import Header from '@/components/shared/Header'
-import React from 'react'
+import { transformationTypes } from '@/constants'
 
-const AddTransformationTypePage = () => {
+const AddTransformationTypePage = async ({ params }: { params: Promise<{ type: string }> }) => {
+  
+  const { type } = await params;
+  
+  const transformation = transformationTypes[type];
+
+  if (!transformation) return null;
+
   return (
-    <Header title="Transformation Title" subtitle="Add a new transformation type" />
+    <section className="mt-10">
+      <Header 
+        title={transformation.title} 
+        subtitle={transformation.subtitle} 
+      />
+    </section>
   )
 }
 
-export default AddTransformationTypePage
+export default AddTransformationTypePage;
