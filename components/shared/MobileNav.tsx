@@ -18,7 +18,7 @@ const MobileNav = () => {
       </Link>
       <nav className="flex items-center">
         <Show when="signed-in">
-          <UserButton afterSwitchSessionUrl="/" showName />
+          <UserButton afterSwitchSessionUrl="/" />
 
           <Sheet>
             <SheetTrigger>
