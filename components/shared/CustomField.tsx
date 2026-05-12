@@ -55,7 +55,7 @@ const CustomField = <T extends FieldValues>({
            {render({field})}
           </FormControl>
 
-          <FormDescription>Provide a concise title for your bug report.</FormDescription>
+          {/* <FormDescription>Provide a concise title for your bug report.</FormDescription> */}
           <FormMessage />
         </FormItem>
       )}

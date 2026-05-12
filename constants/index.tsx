@@ -115,7 +115,7 @@ export const defaultValues = {
   title: '',
   description: '',
   color: '',
-  promt: '',
+  prompt: '',
   publicId: '',
 }
 

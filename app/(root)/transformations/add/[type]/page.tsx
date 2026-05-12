@@ -21,12 +21,14 @@ const AddTransformationTypePage = async ({ params }: { params: { type: string } 
     <>
       <Header title={transformation.title} subtitle={transformation.subtitle} />
 
-      <TransformationForm
-        action="create"
-        userId={user._id}
-        type={transformation.type as TransformationTypeKey}
-        creditBalance={user.creditBalance}
-      />
+      <section className="mt-10">
+        <TransformationForm
+          action="create"
+          userId={user._id}
+          type={transformation.type as TransformationTypeKey}
+          creditBalance={user.creditBalance}
+        />
+      </section>
     </>
   );
 };

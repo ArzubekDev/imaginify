@@ -19,6 +19,7 @@ type TransformationFormProps = {
   type: TransformationTypeKey;
 
   creditBalance: number;
+  config?: unknown;
 
   data?: {
     title?: string;

@@ -52,4 +52,12 @@ interface formUrlQueryParams {
 }
 
 
-type AspectRatioKey = keyof typeof aspectRatioOptions;
+export type AspectRatioKey = keyof typeof aspectRatioOptions;
+
+export const getImageSize = (type:string, image:unknown, dimension: 'width' | 'height'): any => {
+  if(type === 'fill') {
+    return (
+      aspectRatioOptions[image.aspectRatio as AspectRatioKey]?.[dimension] || 1000
+    )
+  }
+}
