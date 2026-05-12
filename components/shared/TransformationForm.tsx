@@ -11,10 +11,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+
 import { Form } from '@/components/ui/form';
 
-import { aspectRatioOptions, defaultValues, transformationTypes } from '@/constants';
-import { AspectRatioKey } from '@/lib/utils';
+import {
+  aspectRatioOptions,
+  defaultValues,
+  transformationTypes,
+  TTransformationType,
+} from '@/constants';
+import { AspectRatioKey, debounce } from '@/lib/utils';
 import { useState } from 'react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -29,6 +35,7 @@ export const formSchema = z.object({
 });
 
 type FormValues = z.infer<typeof formSchema>;
+type TransformationConfig = TTransformationType['config'];
 
 const TransformationForm = ({
   action,
@@ -40,10 +47,10 @@ const TransformationForm = ({
 }: TransformationFormProps) => {
   const transformationType = transformationTypes[type];
   const [image, setImage] = useState(data);
-  const [newTransformation, setNewTransformation] = useState<FormValues | null>(null);
   const [isSubmiting, setIsSubmiting] = useState(false);
   const [isTransforming, setIsTransforming] = useState(false);
   const [transformationConfig, setTransformationConfig] = useState(config);
+  const [newTransformation, setNewTransformation] = useState<TransformationConfig | null>(null);
 
   const initialValues =
     data && action === 'update'
@@ -74,7 +81,9 @@ const TransformationForm = ({
       height: imageSize.height,
     }));
 
-    setNewTransformation(transformationType.config)
+    setNewTransformation(transformationType.config);
+
+    return onChangeField(value)
   };
 
   const onInputChangeHandler = (
@@ -82,7 +91,9 @@ const TransformationForm = ({
     value: string,
     type: string,
     onChangeField: (value: string) => void,
-  ) => {};
+  ) => {
+    debounce(() => {}, 1000)
+  };
 
   const onTransformHandler = () => {};
 
