@@ -3,13 +3,13 @@ import TransformationForm from '@/components/shared/TransformationForm';
 import { transformationTypes } from '@/constants';
 import { getUserByClerkId } from '@/lib/actions/user.actions';
 import { auth } from '@clerk/nextjs/server';
-import { redirect } from 'next/dist/server/api-utils';
+import { redirect } from 'next/navigation';
 
 const AddTransformationTypePage = async ({ params }: { params: { type: string } }) => {
   const { userId } = await auth();
 
-  if(!userId) return redirect('/sign-in');
-  
+  if (!userId) redirect('/sign-in');
+
   const user = await getUserByClerkId(userId!);
   const { type } = await params;
 
