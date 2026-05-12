@@ -77,6 +77,8 @@ export const deepMergeObjects = (obj1: any, obj2: any) => {
         typeof obj2[key] === 'object'
       ) {
         output[key] = deepMergeObjects(obj1[key], obj2[key]);
+      } else {
+        output[key] = obj2[key];
       }
     }
   }
