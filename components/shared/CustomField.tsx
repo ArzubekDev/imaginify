@@ -49,7 +49,7 @@ const CustomField = <T extends FieldValues>({
       render={({ field }) => (
         <FormItem className={className}>
 
-          {formLabel && <FormLabel>{formLabel}</FormLabel>}
+          {formLabel && <FormLabel >{formLabel}</FormLabel>}
 
           <FormControl>
            {render({field})}
