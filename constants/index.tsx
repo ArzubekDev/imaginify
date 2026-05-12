@@ -110,3 +110,13 @@ export const transformationTypes: Record<string, TTransformationType> = {
     icon: "palette.svg"
   }
 };
+
+export const defaultValues = {
+  title: '',
+  description: '',
+  color: '',
+  promt: '',
+  publicId: '',
+}
+
+export const creditFee = -1

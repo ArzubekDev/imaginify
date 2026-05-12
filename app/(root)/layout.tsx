@@ -9,7 +9,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
   <Sidebar/>
   
   <div className="flex-1">
-    <div className="wrapper">
+    <div className="w-[90%] mx-auto">
       {children}
     </div>
   </div>
