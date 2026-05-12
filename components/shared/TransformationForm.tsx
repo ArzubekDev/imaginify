@@ -1,14 +1,23 @@
 'use client';
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Form } from '@/components/ui/form';
 
-import { defaultValues } from '@/constants';
-import CustomField from './CustomField';
+import { aspectRatioOptions, defaultValues, transformationTypes } from '@/constants';
+import { useState } from 'react';
 import { Input } from '../ui/input';
+import CustomField from './CustomField';
 
 export const formSchema = z.object({
   title: z.string(),
@@ -20,7 +29,17 @@ export const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const TransformationForm = ({ action, data = null }: TransformationFormProps) => {
+const TransformationForm = ({
+  action,
+  data = null,
+  userId,
+  type,
+  creditBalance,
+}: TransformationFormProps) => {
+  const transformationType = transformationTypes[type];
+  const [image, setImage] = useState(data);
+  const [newTransforamtion, setNewTransformation] = useState<FormValues | null>(null);
+
   const initialValues =
     data && action === 'update'
       ? {
@@ -41,6 +60,10 @@ const TransformationForm = ({ action, data = null }: TransformationFormProps) =>
     console.log(data);
   }
 
+  const onSelectFieldHandler = (value: string, onChangeField: (value: string) => void) => {
+    form.setValue('aspectRatio', value);
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -51,6 +74,25 @@ const TransformationForm = ({ action, data = null }: TransformationFormProps) =>
           render={({ field }) => <Input {...field} className="input" />}
           className="w-full"
         />
+
+        {type === 'fill' && (
+          <CustomField
+            control={form.control}
+            name="aspectRatio"
+            formLabel="Aspect Ratio"
+            className="w-full"
+            render={({ field }) => (
+              <Select onValueChange={(value) => onSelectFieldHandler(value, field.onChange)}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select size" />
+                </SelectTrigger>
+                <SelectContent>
+                 {Object.keys(aspectRatioOptions)}
+                </SelectContent>
+              </Select>
+            )}
+          />
+        )}
       </form>
     </Form>
   );
