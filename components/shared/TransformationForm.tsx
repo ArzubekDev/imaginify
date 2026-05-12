@@ -18,6 +18,7 @@ import { aspectRatioOptions, defaultValues, transformationTypes } from '@/consta
 import { useState } from 'react';
 import { Input } from '../ui/input';
 import CustomField from './CustomField';
+import { AspectRatioKey } from '@/lib/utils';
 
 export const formSchema = z.object({
   title: z.string(),
@@ -83,11 +84,15 @@ const TransformationForm = ({
             className="w-full"
             render={({ field }) => (
               <Select onValueChange={(value) => onSelectFieldHandler(value, field.onChange)}>
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-45">
                   <SelectValue placeholder="Select size" />
                 </SelectTrigger>
                 <SelectContent>
-                 {Object.keys(aspectRatioOptions)}
+                 {Object.keys(aspectRatioOptions).map((key) => (
+                  <SelectItem key={key} value={key}>
+                    {aspectRatioOptions[key as AspectRatioKey].label}
+                  </SelectItem>
+                 ))}
                 </SelectContent>
               </Select>
             )}
