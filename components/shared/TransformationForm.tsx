@@ -11,7 +11,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-
 import { Form } from '@/components/ui/form';
 
 import {
@@ -83,7 +82,7 @@ const TransformationForm = ({
 
     setNewTransformation(transformationType.config);
 
-    return onChangeField(value)
+    return onChangeField(value);
   };
 
   const onInputChangeHandler = (
@@ -92,7 +91,17 @@ const TransformationForm = ({
     type: string,
     onChangeField: (value: string) => void,
   ) => {
-    debounce(() => {}, 1000)
+    debounce(() => {
+      setNewTransformation((prevState: any) => ({
+        ...prevState,
+        [type]: {
+          ...prevState?.[type],
+          [fieldName === 'prompt' ? 'prompt' : 'to']: value,
+        },
+      }));
+
+      return onChangeField(value);
+    }, 1000);
   };
 
   const onTransformHandler = () => {};
