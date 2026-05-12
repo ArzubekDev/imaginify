@@ -35,7 +35,7 @@ const TransformationForm = ({ action, data = null }: TransformationFormProps) =>
           title: data?.title,
           aspectRatio: data?.aspectRatio,
           color: data?.color,
-          promt: data?.promt,
+          prompt: data?.prompt,
           publicId: data?.publicId,
         }
       : defaultValues;

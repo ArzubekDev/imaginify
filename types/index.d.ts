@@ -11,17 +11,27 @@ declare type CreateUserParams = {
 
 declare type UpdateUserParams = Partial<CreateUserParams>;
 
-declare type TransformationFormProps = {
-    action: 'create' | 'update';
-    data?: {
-        title: string;
-        aspectRatio?: string;
-        color?: string;
-        promt?: string;
-        publicId?: string;
-    } | null;
+type TransformationFormProps = {
+  action: 'create' | 'update';
+
+  userId: string;
+
+  type: TransformationTypeKey;
+
+  creditBalance: number;
+
+  data?: {
+    title?: string;
+    aspectRatio?: string;
+    color?: string;
+    prompt?: string;
+    publicId?: string;
+  } | null;
 };
 
-// declare module "zod" {
-//     export type zodInfer<T> = T extends z.ZodType<infer U> ? U : never;
-// }
+declare type TransformationTypeKey =
+  | 'restore'
+  | 'fill'
+  | 'remove'
+  | 'recolor'
+  | 'removeBackground';
