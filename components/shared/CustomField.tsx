@@ -24,7 +24,7 @@ import {
 type CustomFieldProps<T extends FieldValues> = {
   control: Control<T>;
   name: Path<T>;
-  formLabel: string;
+  formLabel?: string;
 
   render: ({
     field,

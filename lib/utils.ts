@@ -36,7 +36,7 @@ const shimer = (w: number, h: number) => `
 export const toBase64 = (str: string) =>
   typeof window === 'undefined' ? Buffer.from(str).toString('base64') : window.btoa(str);
 
-export const dataURL = `data:image/svg+xml;base64,${toBase64(shimer(700, 475))}`;
+export const dataURL = `data:image/svg+xml;base64,${toBase64(shimer(1000, 1000))}`;
 
 export const formUrlQuery = ({ searchParams, key, value }: formUrlQueryParams) => {
   const params = { ...qs.parse(searchParams.toString()), [key]: value };
@@ -51,10 +51,11 @@ interface formUrlQueryParams {
 
 export type AspectRatioKey = keyof typeof aspectRatioOptions;
 
-export const getImageSize = (type: string, image: unknown, dimension: 'width' | 'height'): any => {
+export const getImageSize = (type: string, image: any, dimension: 'width' | 'height'): any => {
   if (type === 'fill') {
     return aspectRatioOptions[image.aspectRatio as AspectRatioKey]?.[dimension] || 1000;
   }
+  return image?.[dimension] || 1000
 };
 
 export const debounce = <T extends (...args: unknown[]) => unknown>(func: T, wait: number) => {

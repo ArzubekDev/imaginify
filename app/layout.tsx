@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { IBM_Plex_Sans } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import './globals.css';
+import { Toaster } from 'sonner';
 
 const IBMPlex = IBM_Plex_Sans({
   subsets: ['latin'],
@@ -25,6 +26,7 @@ export default function RootLayout({
     <html lang="en" className={cn(IBMPlex.className, 'antialiased')}>
       <body className="min-h-full flex flex-col"><ClerkProvider>
           {children}
+          <Toaster richColors closeButton />
         </ClerkProvider></body>
     </html>
   );
