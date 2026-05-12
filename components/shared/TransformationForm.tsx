@@ -19,8 +19,8 @@ import {
   transformationTypes,
   TTransformationType,
 } from '@/constants';
-import { AspectRatioKey, debounce } from '@/lib/utils';
-import { useState } from 'react';
+import { AspectRatioKey, debounce, deepMergeObjects } from '@/lib/utils';
+import { useState, useTransition } from 'react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import CustomField from './CustomField';
@@ -50,6 +50,7 @@ const TransformationForm = ({
   const [isTransforming, setIsTransforming] = useState(false);
   const [transformationConfig, setTransformationConfig] = useState(config);
   const [newTransformation, setNewTransformation] = useState<TransformationConfig | null>(null);
+  const [isPending, startTransition] = useTransition()
 
   const initialValues =
     data && action === 'update'
@@ -104,7 +105,13 @@ const TransformationForm = ({
     }, 1000);
   };
 
-  const onTransformHandler = () => {};
+  const onTransformHandler = async () => {
+setIsTransforming(true)
+
+setTransformationConfig(
+  deepMergeObjects(newTransformation, transformationConfig)
+)
+  };
 
   return (
     <Form {...form}>
