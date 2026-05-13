@@ -77,6 +77,12 @@ const TransformationForm = ({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmiting(true);
 
+    if (!image?.publicId) { 
+      console.log("No image selected");
+      setIsSubmiting(false);
+      return;
+    }
+
     if (!data || image) {
       const transformationURL = getCldImageUrl({
         width: image?.width,
@@ -98,6 +104,7 @@ const TransformationForm = ({
         prompt: values.prompt || '',
         color: values.color || '',
       };
+      console.log('imageData:', imageData)
 
       if (action === 'create') {
         try {
@@ -136,6 +143,8 @@ const TransformationForm = ({
       }
     }
 
+    console.log('image object:', image)
+    
     setIsSubmiting(false)
   }
 
@@ -283,7 +292,7 @@ const TransformationForm = ({
         <div className="flex flex-col gap-2">
           <Button
             className="capitalize"
-            type="submit"
+            type="button"
             disabled={isTransforming || newTransformation === null}
             onClick={onTransformHandler}
           >
