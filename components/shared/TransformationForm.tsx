@@ -27,6 +27,7 @@ import CustomField from './CustomField';
 import MediaUploader from './MediaUploader';
 import TransformadImage from './TransformadImage';
 import { updateCredits } from '@/lib/actions/user.actions';
+import { getCldImageUrl } from 'next-cloudinary';
 
 export const formSchema = z.object({
   title: z.string(),
@@ -71,8 +72,17 @@ const TransformationForm = ({
     defaultValues: initialValues,
   });
 
-  function onSubmit(data: FormValues) {
-    console.log(data);
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmiting(true)
+
+    if(!data || image){
+      const transformationUrl = getCldImageUrl({
+        width: image?.width,
+        height: image?.height,
+        src: image?.publicId,
+        ...transformationConfig
+      })
+    }
   }
 
   const onSelectFieldHandler = (value: string, onChangeField: (value: string) => void) => {
