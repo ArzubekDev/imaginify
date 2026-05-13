@@ -3,6 +3,16 @@ import { DownloadCloud, Loader } from "lucide-react";
 import { CldImage } from "next-cloudinary";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 
+const getCldProps = (config: any) => {
+    const props: any = {};
+    if (config?.restore) props.restore = true;
+    if (config?.bremove) props.removeBackground = true; 
+    if (config?.fill) props.fillBackground = true;
+    if (config?.remove) props.remove = config.remove;
+    if (config?.recolor) props.recolor = config.recolor;
+    return props;
+  };
+
 
 export default function TransformadImage({ image, type, title, transformationConfig, isTransforming, setIsTransforming, hasDownload = false }: TransfromedImageProps) {
     const downloadHandler = () => { }
@@ -36,7 +46,7 @@ export default function TransformadImage({ image, type, title, transformationCon
                                     setIsTransforming && setIsTransforming(false)
                                 }, 8000)
                             }}
-                            {...safeConfig}  // ✅ width/height/fill жок
+                            {...getCldProps(transformationConfig)}
                         />
 
                         {

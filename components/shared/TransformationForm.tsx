@@ -13,16 +13,17 @@ import { z } from 'zod';
 
 import { Form } from '@/components/ui/form';
 
-import { aspectRatioOptions, defaultValues, transformationTypes } from '@/constants';
+import { aspectRatioOptions, creditFee, defaultValues, transformationTypes } from '@/constants';
 import { addImage, updateImage } from '@/lib/actions/image.actions';
 import { updateCredits } from '@/lib/actions/user.actions';
 import { AspectRatioKey, debounce, deepMergeObjects } from '@/lib/utils';
 import { getCldImageUrl } from 'next-cloudinary';
 import { useRouter } from 'next/navigation';
-import { useState, useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import CustomField from './CustomField';
+import { InsufficientCreditsModal } from './InsufficientCreditsModal';
 import MediaUploader from './MediaUploader';
 import TransformadImage from './TransformadImage';
 
@@ -77,7 +78,7 @@ const TransformationForm = ({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmiting(true);
 
-    if (!image?.publicId) { 
+    if (!image?.publicId) {
       console.log("No image selected");
       setIsSubmiting(false);
       return;
@@ -144,7 +145,7 @@ const TransformationForm = ({
     }
 
     console.log('image object:', image)
-    
+
     setIsSubmiting(false)
   }
 
@@ -189,13 +190,29 @@ const TransformationForm = ({
     setNewTransformation(null);
 
     startTransition(async () => {
-      await updateCredits(userId, -1);
+      await updateCredits(userId, creditFee);
     });
   };
+
+  const handleSetImage = (imageData: any) => {
+    setImage(imageData);
+    if (!newTransformation) {
+      setNewTransformation(transformationType.config);
+    }
+  };
+
+  useEffect(() => {
+    if(image && (type === 'restore' || type === 'removeBackground')) {
+      setNewTransformation(transformationType.config)
+    }
+  }, [image, transformationType.config, type])
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+
+        {creditBalance < Math.abs(creditFee) && <InsufficientCreditsModal />}
+
         <CustomField
           control={form.control}
           name="title"
@@ -271,7 +288,7 @@ const TransformationForm = ({
             render={({ field }) => (
               <MediaUploader
                 onValueChange={field.onChange}
-                setImage={setImage}
+                setImage={handleSetImage}
                 publicId={String(field.value || '')}
                 image={image}
                 type={type}

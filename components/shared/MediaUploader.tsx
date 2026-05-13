@@ -6,19 +6,15 @@ import { toast } from 'sonner';
 
 type MediaUploaderProps = {
   onValueChange: (value: string) => void;
-  setImage: React.Dispatch<any>;
+  setImage: (value: any) => void;
   publicId: string;
   image: any;
   type: string;
 };
 
 const MediaUploader = ({ onValueChange, setImage, image, publicId, type }: MediaUploaderProps) => {
-  //     // В MediaUploader временно добавьте
-  // console.log('publicId:', publicId);
-  // console.log('image:', image);
 
   const onUploadSuccessHandler = (result: any) => {
-    // console.log('Upload result:', result?.info);
     setImage((prevState: any) => ({
       ...prevState,
       publicId: result?.info?.public_id,

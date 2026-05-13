@@ -82,7 +82,7 @@ export const transformationTypes: Record<string, TTransformationType> = {
     icon: "image.svg"
   },
   bremove: {
-    type: 'background-remove',
+    type: 'bremove',
     title: 'Background Remove',
     subtitle: 'Easily remove backgrounds from your images with our AI-powered background removal tool.',
     config: { bremove: true },
