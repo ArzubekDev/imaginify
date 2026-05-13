@@ -13,21 +13,16 @@ import { z } from 'zod';
 
 import { Form } from '@/components/ui/form';
 
-import {
-  aspectRatioOptions,
-  defaultValues,
-  transformationTypes,
-  TTransformationType,
-} from '@/constants';
+import { aspectRatioOptions, defaultValues, transformationTypes } from '@/constants';
+import { updateCredits } from '@/lib/actions/user.actions';
 import { AspectRatioKey, debounce, deepMergeObjects } from '@/lib/utils';
+import { getCldImageUrl } from 'next-cloudinary';
 import { useState, useTransition } from 'react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import CustomField from './CustomField';
 import MediaUploader from './MediaUploader';
 import TransformadImage from './TransformadImage';
-import { updateCredits } from '@/lib/actions/user.actions';
-import { getCldImageUrl } from 'next-cloudinary';
 
 export const formSchema = z.object({
   title: z.string(),
@@ -35,10 +30,12 @@ export const formSchema = z.object({
   color: z.string().optional(),
   prompt: z.string().optional(),
   publicId: z.string().optional(),
+  width: z.number().optional(),
+  height: z.number().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
-type TransformationConfig = TTransformationType['config'];
+type TransformationConfig = Record<string, any>;
 
 const TransformationForm = ({
   action,
@@ -52,7 +49,9 @@ const TransformationForm = ({
   const [image, setImage] = useState(data);
   const [isSubmiting, setIsSubmiting] = useState(false);
   const [isTransforming, setIsTransforming] = useState(false);
-  const [transformationConfig, setTransformationConfig] = useState(config);
+  const [transformationConfig, setTransformationConfig] = useState<TransformationConfig | null>(
+    config as TransformationConfig,
+  );
   const [newTransformation, setNewTransformation] = useState<TransformationConfig | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -73,15 +72,15 @@ const TransformationForm = ({
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmiting(true)
+    setIsSubmiting(true);
 
-    if(!data || image){
+    if (!data || image) {
       const transformationUrl = getCldImageUrl({
         width: image?.width,
         height: image?.height,
-        src: image?.publicId,
-        ...transformationConfig
-      })
+        src: image?.publicId || '',
+        ...transformationConfig,
+      });
     }
   }
 
@@ -126,7 +125,7 @@ const TransformationForm = ({
     setNewTransformation(null);
 
     startTransition(async () => {
-      await updateCredits(userId, -1)
+      await updateCredits(userId, -1);
     });
   };
 
@@ -200,7 +199,7 @@ const TransformationForm = ({
           </div>
         )}
 
-        <div className='flex'>
+        <div className="flex">
           <CustomField
             control={form.control}
             name="publicId"
@@ -209,7 +208,7 @@ const TransformationForm = ({
               <MediaUploader
                 onValueChange={field.onChange}
                 setImage={setImage}
-                publicId={field.value || ''}
+                publicId={String(field.value || '')}
                 image={image}
                 type={type}
               />
@@ -220,6 +219,7 @@ const TransformationForm = ({
             image={image}
             type={type}
             title={form.getValues().title}
+            transformationConfig={transformationConfig}
             isTransforming={isTransforming}
             setIsTransforming={setIsTransforming}
           />

@@ -21,13 +21,15 @@ type TransformationFormProps = {
   creditBalance: number;
   config?: unknown;
 
-  data?: {
-    title?: string;
-    aspectRatio?: string;
-    color?: string;
-    prompt?: string;
-    publicId?: string;
-  } | null;
+data?: {
+  title?: string;
+  aspectRatio?: string;
+  color?: string;
+  prompt?: string;
+  publicId?: string;
+  width?: number;
+  height?: number;
+} | null;
 };
 
 declare type TransformationTypeKey =
@@ -84,3 +86,4 @@ declare type UpdateImageParams = {
   userId: string;
   path: string;
 };
+
