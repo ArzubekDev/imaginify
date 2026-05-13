@@ -14,10 +14,11 @@ import { z } from 'zod';
 import { Form } from '@/components/ui/form';
 
 import { aspectRatioOptions, defaultValues, transformationTypes } from '@/constants';
-import { addImage } from '@/lib/actions/image.actions';
+import { addImage, updateImage } from '@/lib/actions/image.actions';
 import { updateCredits } from '@/lib/actions/user.actions';
 import { AspectRatioKey, debounce, deepMergeObjects } from '@/lib/utils';
 import { getCldImageUrl } from 'next-cloudinary';
+import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -55,16 +56,17 @@ const TransformationForm = ({
   );
   const [newTransformation, setNewTransformation] = useState<TransformationConfig | null>(null);
   const [isPending, startTransition] = useTransition();
+  const router = useRouter()
 
   const initialValues =
     data && action === 'update'
       ? {
-          title: data?.title,
-          aspectRatio: data?.aspectRatio,
-          color: data?.color,
-          prompt: data?.prompt,
-          publicId: data?.publicId,
-        }
+        title: data?.title,
+        aspectRatio: data?.aspectRatio,
+        color: data?.color,
+        prompt: data?.prompt,
+        publicId: data?.publicId,
+      }
       : defaultValues;
 
   const form = useForm<FormValues>({
@@ -85,24 +87,56 @@ const TransformationForm = ({
 
       const imageData = {
         title: values.title,
-        publicId: image?.publicId,
+        publicId: image?.publicId || '',
         transformationType: type,
-        width: image?.width,
-        height: image?.height,
+        width: image?.width || 0,
+        height: image?.height || 0,
         config: transformationConfig,
-        secureUrl: image?.secureURL,
-        transformationURL: transformationURL,
-        aspectRatio: values.aspectRatio,
-        prompt: values.prompt,
-        color: values.color,
+        secureURL: image?.secureURL || '',
+        transformationURL: transformationURL || '',
+        aspectRatio: values.aspectRatio || '',
+        prompt: values.prompt || '',
+        color: values.color || '',
       };
 
       if (action === 'create') {
         try {
-          const newImage = await addImage;
-        } catch (error) {}
+          const newImage = await addImage({
+            image: imageData,
+            userId,
+            path: '/'
+          });
+
+          if (newImage) {
+            form.reset()
+            setImage(data)
+            router.push(`/transformations/${newImage._id}`)
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      if (action === 'update') {
+        try {
+          const updatedImage = await updateImage({
+            image: {
+              ...imageData,
+              _id: data?._id || ''
+            },
+            userId,
+            path: `/transformations/${data?._id}`
+          });
+
+          if (updatedImage) {
+            router.push(`/transformations/${updatedImage._id}`)
+          }
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
+
+    setIsSubmiting(false)
   }
 
   const onSelectFieldHandler = (value: string, onChangeField: (value: string) => void) => {

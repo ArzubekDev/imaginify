@@ -22,6 +22,7 @@ type TransformationFormProps = {
   config?: unknown;
 
 data?: {
+  _id?: string;
   title?: string;
   aspectRatio?: string;
   color?: string;
