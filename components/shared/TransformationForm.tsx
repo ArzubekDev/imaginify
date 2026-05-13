@@ -25,6 +25,8 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import CustomField from './CustomField';
 import MediaUploader from './MediaUploader';
+import TransformadImage from './TransformadImage';
+import { updateCredits } from '@/lib/actions/user.actions';
 
 export const formSchema = z.object({
   title: z.string(),
@@ -106,15 +108,16 @@ const TransformationForm = ({
     }, 1000);
   };
 
+  // TODO: Update creditFee to something else
   const onTransformHandler = async () => {
     setIsTransforming(true);
 
     setTransformationConfig(deepMergeObjects(newTransformation, transformationConfig));
-    setNewTransformation(null)
+    setNewTransformation(null);
 
-    startTransition(async() => {
-      // await updateCredits(userId, creditFee)
-    })
+    startTransition(async () => {
+      await updateCredits(userId, -1)
+    });
   };
 
   return (
@@ -187,23 +190,30 @@ const TransformationForm = ({
           </div>
         )}
 
-<div>
-  <CustomField
-  control={form.control}
-  name='publicId'
-  className='flex size-full flex-col'
-  render={({field}) => (
-    <MediaUploader
-    onValueChange={field.onChange}
-    setImage={setImage}
-    publicId={field.value || ''}
-    image={image}
-    type={type}
-    />
-  )}
-  />
-</div>
+        <div className='flex'>
+          <CustomField
+            control={form.control}
+            name="publicId"
+            className="flex size-full flex-col w-full"
+            render={({ field }) => (
+              <MediaUploader
+                onValueChange={field.onChange}
+                setImage={setImage}
+                publicId={field.value || ''}
+                image={image}
+                type={type}
+              />
+            )}
+          />
 
+          <TransformadImage
+            image={image}
+            type={type}
+            title={form.getValues().title}
+            isTransforming={isTransforming}
+            setIsTransforming={setIsTransforming}
+          />
+        </div>
 
         <div className="flex flex-col gap-2">
           <Button

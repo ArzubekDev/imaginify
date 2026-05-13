@@ -69,7 +69,7 @@ const MediaUploader = ({ onValueChange, setImage, image, publicId, type }: Media
             </div>
           ) : (
             <div onClick={() => open()}>
-              <div className="cursor-pointer w-72 h-28 shadow-2xl rounded-sm flex flex-col items-center justify-center">
+              <div className="cursor-pointer w-full shadow-2xl rounded-sm flex flex-col items-center justify-center">
                 <Plus className="w-6 h-6 bg-blue-500 rounded-sm text-white p-1" />
                 <p className="font-medium">Click here to upload image</p>
               </div>
