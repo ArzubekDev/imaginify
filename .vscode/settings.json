@@ -1,4 +1,5 @@
 {
-    "editor.snippetSuggestions": "top",
-    "editor.suggestSelection": "recentlyUsed"
+  "editor.snippetSuggestions": "top",
+  "editor.suggestSelection": "recentlyUsed",
+  "terminal.integrated.fontLigatures.enabled": true
 }

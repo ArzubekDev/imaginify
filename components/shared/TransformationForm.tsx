@@ -14,6 +14,7 @@ import { z } from 'zod';
 import { Form } from '@/components/ui/form';
 
 import { aspectRatioOptions, defaultValues, transformationTypes } from '@/constants';
+import { addImage } from '@/lib/actions/image.actions';
 import { updateCredits } from '@/lib/actions/user.actions';
 import { AspectRatioKey, debounce, deepMergeObjects } from '@/lib/utils';
 import { getCldImageUrl } from 'next-cloudinary';
@@ -71,16 +72,36 @@ const TransformationForm = ({
     defaultValues: initialValues,
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmiting(true);
 
     if (!data || image) {
-      const transformationUrl = getCldImageUrl({
+      const transformationURL = getCldImageUrl({
         width: image?.width,
         height: image?.height,
         src: image?.publicId || '',
         ...transformationConfig,
       });
+
+      const imageData = {
+        title: values.title,
+        publicId: image?.publicId,
+        transformationType: type,
+        width: image?.width,
+        height: image?.height,
+        config: transformationConfig,
+        secureUrl: image?.secureURL,
+        transformationURL: transformationURL,
+        aspectRatio: values.aspectRatio,
+        prompt: values.prompt,
+        color: values.color,
+      };
+
+      if (action === 'create') {
+        try {
+          const newImage = await addImage;
+        } catch (error) {}
+      }
     }
   }
 

@@ -29,6 +29,7 @@ data?: {
   publicId?: string;
   width?: number;
   height?: number;
+  secureURL?: string;
 } | null;
 };
 
