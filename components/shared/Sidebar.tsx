@@ -12,12 +12,12 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden h-screen w-72.5 border-r border-white/10 bg-[#09090b] md:flex">
+    <aside className="hidden h-screen w-72.5 border-r border-white/10 bg-[#09090b] md:flex py-5">
       <div className="flex w-full flex-col px-5 py-6">
         {/* LOGO */}
        <Link
   href="/"
-  className="mb-5 flex items-center gap-3 px-2 py-3"
+  className="mb-5 flex items-center gap-3 px-2 pb-3"
 >
   <div className="flex h-10.5 w-10.5 items-center justify-center rounded-[14px] bg-[#1e1b4b]">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -81,7 +81,7 @@ const Sidebar = () => {
         </nav>
 
         {/* BOTTOM NAV */}
-        <div className="mt-6 border-t border-white/10 pt-6">
+        <div className="mt-auto border-t border-white/10 pt-6">
           <ul className="flex flex-col gap-2">
             {navLinks.slice(6).map((item) => {
               const isActive = item.href === pathname;
