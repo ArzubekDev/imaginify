@@ -17,7 +17,7 @@ const Collection = ({
   images: IImage[];
   hasSearch?: boolean;
   page: number;
-  totalPages: number;
+  totalPages: number | undefined;
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
