@@ -85,3 +85,24 @@ export const deepMergeObjects = (obj1: any, obj2: any) => {
   }
   return output
 };
+
+
+interface RemoveUrlQueryParams {
+  searchParams: any; 
+  keysToRemove: string[];
+}
+
+export const removeKeyFromQuery = ({
+  searchParams,
+  keysToRemove,
+}: RemoveUrlQueryParams) => {
+  const currentUrl = qs.parse(searchParams.toString());
+
+  keysToRemove.forEach((key) => {
+    delete currentUrl[key];
+  });
+
+  const query = qs.stringify(currentUrl, { skipNulls: true });
+
+  return `${window.location.pathname}${query ? `?${query}` : ''}`;
+};
