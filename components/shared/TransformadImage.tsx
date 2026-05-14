@@ -1,8 +1,8 @@
 'use client'
 
-import { dataURL, debounce, getImageSize } from "@/lib/utils";
+import { dataURL, debounce, download, getImageSize } from "@/lib/utils";
 import { DownloadCloud, Loader } from "lucide-react";
-import { CldImage } from "next-cloudinary";
+import { CldImage, getCldImageUrl } from "next-cloudinary";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 
 const getCldProps = (config: any) => {
@@ -17,7 +17,16 @@ const getCldProps = (config: any) => {
 
 
 export default function TransformadImage({ image, type, title, transformationConfig, isTransforming, setIsTransforming, hasDownload = false }: TransfromedImageProps) {
-    const downloadHandler = () => { }
+    const downloadHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault()
+
+        download(getCldImageUrl({
+            width: image?.width,
+            height: image?.height,
+            src: image?.publicId,
+            ...transformationConfig
+        }), title)
+     }
     const { width, height, fill, ...safeConfig } = transformationConfig || {};
 
     return (
@@ -25,7 +34,7 @@ export default function TransformadImage({ image, type, title, transformationCon
             <div className="flex justify-between">
 
                 {hasDownload && (
-                    <button onClick={() => downloadHandler()}>
+                    <button onClick={downloadHandler}>
                         <DownloadCloud className="w-10 h-10" />
                     </button>
                 )}
