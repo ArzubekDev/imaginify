@@ -15,20 +15,30 @@ const Sidebar = () => {
     <aside className="hidden h-screen w-72.5 border-r border-white/10 bg-[#09090b] md:flex">
       <div className="flex w-full flex-col px-5 py-6">
         {/* LOGO */}
-        <Link
-          href="/"
-          className="mb-5 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/3 p-4 backdrop-blur"
-        >
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br from-indigo-500 to-violet-600 text-xl font-black text-white shadow-lg">
-            I
-          </div>
+       <Link
+  href="/"
+  className="mb-5 flex items-center gap-3 px-2 py-3"
+>
+  <div className="flex h-10.5 w-10.5 items-center justify-center rounded-[14px] bg-[#1e1b4b]">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M12 3 L13.5 10 L20 12 L13.5 14 L12 21 L10.5 14 L4 12 L10.5 10 Z"
+        fill="#c4b5fd"
+        stroke="#7c3aed"
+        strokeWidth="0.5"
+      />
+    </svg>
+  </div>
 
-          <div>
-            <h1 className="text-lg font-black tracking-tight text-white">Imaginify</h1>
-
-            <p className="text-xs text-zinc-400">AI Image Platform</p>
-          </div>
-        </Link>
+  <div>
+    <h1 className="text-lg font-bold tracking-[-0.4px] text-white">
+      IMAGINIFY
+    </h1>
+    <p className="text-[10px] font-medium tracking-[0.15em] text-[#6d28d9] uppercase">
+      Creative AI
+    </p>
+  </div>
+</Link>
 
         {/* TOP NAV */}
         <nav className="">

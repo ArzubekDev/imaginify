@@ -14,7 +14,7 @@ const Home = async ({ searchParams }: SearchParamProps) => {
 
   return (
     <>
-      <section className="relative overflow-hidden rounded-[32px] border border-white/10 bg-linear-to-br from-zinc-950 via-zinc-900 to-zinc-950 p-8 sm:p-12">
+      <section className="relative overflow-hidden rounded-[32px] border border-white/10 bg-linear-to-br from-zinc-950 via-zinc-900 to-zinc-950 p-8 sm:p-8">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.25),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(168,85,247,0.18),transparent_35%)]" />
 
         <div className="relative z-10 max-w-3xl">
@@ -22,7 +22,7 @@ const Home = async ({ searchParams }: SearchParamProps) => {
             AI Powered Image Transformations
           </span>
 
-          <h1 className="text-4xl font-black leading-tight tracking-tight text-white sm:text-6xl">
+          <h1 className="text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl">
             Unleash Your Creative Vision with Imaginigy
           </h1>
 
