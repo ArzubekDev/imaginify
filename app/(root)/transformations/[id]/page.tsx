@@ -11,8 +11,7 @@ import Link from 'next/link';
 
 const ImageDetails = async ({ params }: SearchParamProps) => {
   const { id } = await params;
-  const { sessionClaims } = await auth();
-  const userId = sessionClaims?.userId as string;
+  const { userId } = await auth();
 
   const image = await getImageById(id);
 
@@ -79,7 +78,7 @@ const ImageDetails = async ({ params }: SearchParamProps) => {
           />
         </div>
 
-        {userId === image.author._id && (
+        {userId === image.author.clerkId && (
           <div>
             <Button asChild type="button">
               <Link href={`/transformations/${image._id}/update`}>Update Image</Link>
