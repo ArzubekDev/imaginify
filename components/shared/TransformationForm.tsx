@@ -59,16 +59,18 @@ const TransformationForm = ({
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
-  const initialValues =
-    data && action === 'update'
-      ? {
-          title: data?.title,
-          aspectRatio: data?.aspectRatio,
-          color: data?.color,
-          prompt: data?.prompt,
-          publicId: data?.publicId,
-        }
-      : defaultValues;
+const initialValues =
+  data && action === 'update'
+    ? {
+        title: data?.title,
+        aspectRatio: data?.aspectRatio, 
+        color: data?.color,
+        prompt: data?.prompt,
+        publicId: data?.publicId,
+        width: data?.width,   
+        height: data?.height,  
+      }
+    : defaultValues;
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -163,24 +165,24 @@ const TransformationForm = ({
     return onChangeField(value);
   };
 
-  const onInputChangeHandler = (
-    fieldName: string,
-    value: string,
-    type: string,
-    onChangeField: (value: string) => void,
-  ) => {
-    debounce(() => {
-      setNewTransformation((prevState: any) => ({
-        ...prevState,
-        [type]: {
-          ...prevState?.[type],
-          [fieldName === 'prompt' ? 'prompt' : 'to']: value,
-        },
-      }));
+const onInputChangeHandler = (
+  fieldName: string,
+  value: string,
+  type: string,
+  onChangeField: (value: string) => void,
+) => {
+  debounce(() => {
+    setNewTransformation((prevState: any) => ({
+      ...prevState,
+      [type]: {
+        ...prevState?.[type],
+        [fieldName === 'prompt' ? 'prompt' : 'to']: value,
+      },
+    }));
+  }, 1000)(); 
 
-      return onChangeField(value);
-    }, 1000);
-  };
+  return onChangeField(value); 
+};
 
   // TODO: Update creditFee to something else
   const onTransformHandler = async () => {
@@ -201,11 +203,14 @@ const TransformationForm = ({
     }
   };
 
-  useEffect(() => {
-    if (image && (type === 'restore' || type === 'removeBackground')) {
-      setNewTransformation(transformationType.config);
-    }
-  }, [image, transformationType.config, type]);
+useEffect(() => {
+  if (image && (type === 'restore' || type === 'removeBackground')) {
+    setNewTransformation(transformationType.config);
+  }
+  if (image && type === 'fill' && data?.aspectRatio) {
+    setNewTransformation(transformationType.config);
+  }
+}, [image, transformationType.config, type]);
 
   return (
     <Form {...form}>
