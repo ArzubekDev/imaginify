@@ -12,14 +12,14 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden h-screen w-[290px] border-r border-white/10 bg-[#09090b] md:flex">
+    <aside className="hidden h-screen w-72.5 border-r border-white/10 bg-[#09090b] md:flex">
       <div className="flex w-full flex-col px-5 py-6">
         {/* LOGO */}
         <Link
           href="/"
-          className="mb-5 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur"
+          className="mb-5 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/3 p-4 backdrop-blur"
         >
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 text-xl font-black text-white shadow-lg">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br from-indigo-500 to-violet-600 text-xl font-black text-white shadow-lg">
             I
           </div>
 
@@ -49,8 +49,8 @@ const Sidebar = () => {
                     className={cn(
                       'group flex items-center gap-4 rounded-2xl px-2 py-1 transition-all duration-300',
                       isActive
-                        ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-[0_10px_30px_rgba(79,70,229,0.35)]'
-                        : 'text-zinc-400 hover:bg-white/[0.04] hover:text-white',
+                        ? 'bg-linear-to-r from-indigo-600 to-violet-600 text-white shadow-[0_10px_30px_rgba(79,70,229,0.35)]'
+                        : 'text-zinc-400 hover:bg-white/4 hover:text-white',
                     )}
                   >
                     <div
@@ -83,8 +83,8 @@ const Sidebar = () => {
                     className={cn(
                       'group flex items-center gap-4 rounded-2xl px-2 py-1 transition-all duration-300',
                       isActive
-                        ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-[0_10px_30px_rgba(79,70,229,0.35)]'
-                        : 'text-zinc-400 hover:bg-white/[0.04] hover:text-white',
+                        ? 'bg-linear-to-r from-indigo-600 to-violet-600 text-white shadow-[0_10px_30px_rgba(79,70,229,0.35)]'
+                        : 'text-zinc-400 hover:bg-white/4 hover:text-white',
                     )}
                   >
                     <div
@@ -109,7 +109,9 @@ const Sidebar = () => {
                   <UserButton afterSwitchSessionUrl="/" />
                   <div className="flex flex-col">
                     <span className="text-sm font-medium text-zinc-200">{user?.fullName}</span>
-                    <span className="text-xs text-zinc-500">@{user?.username}</span>
+                    <span className="text-xs text-zinc-500">
+                      {user?.primaryEmailAddress?.emailAddress}
+                    </span>
                   </div>
                 </div>
               </Show>
@@ -117,7 +119,7 @@ const Sidebar = () => {
               <Show when="signed-out">
                 <Button
                   asChild
-                  className="h-12 w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(79,70,229,0.35)] transition-all duration-300 hover:scale-[1.02] hover:from-indigo-500 hover:to-violet-500"
+                  className="h-12 w-full rounded-2xl bg-linear-to-r from-indigo-600 to-violet-600 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(79,70,229,0.35)] transition-all duration-300 hover:scale-[1.02] hover:from-indigo-500 hover:to-violet-500"
                 >
                   <SignInButton mode="modal">Login</SignInButton>
                 </Button>
