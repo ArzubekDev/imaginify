@@ -114,7 +114,7 @@ const Collection = ({
 const Card = ({ image }: { image: IImage }) => {
   return (
     <li>
-      <Link href={`/transformations/${image._id}`} className="group relative block overflow-hidden rounded-2xl border border-white/[0.06]">
+      <Link href={`/transformations/${image._id}`} className="group relative block overflow-hidden rounded-2xl border border-white/6">
         <div className="relative h-52 w-full">
           <CldImage
             src={image.publicId}
@@ -125,7 +125,7 @@ const Card = ({ image }: { image: IImage }) => {
             sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 33vw"
           />
         </div>
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+        <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/80 to-transparent p-4">
           <p className="text-sm font-semibold text-white">{image.title}</p>
           <p className="text-xs text-white/50">{image.transformationType}</p>
         </div>
