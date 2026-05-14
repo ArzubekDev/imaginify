@@ -96,7 +96,6 @@ export async function getAllImages({
   try {
     await connectToDatabase();
 
-    // ✅ Просто ищем в MongoDB по title и transformationType
     const query = searchQuery
       ? {
           $or: [
