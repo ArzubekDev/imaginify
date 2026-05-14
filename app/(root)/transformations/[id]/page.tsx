@@ -1,3 +1,4 @@
+import DeleteConfirmation from '@/components/shared/DeleteConfirmation';
 import Header from '@/components/shared/Header';
 import TransformadImage from '@/components/shared/TransformadImage';
 import { Button } from '@/components/ui/button';
@@ -83,6 +84,8 @@ const ImageDetails = async ({ params }: SearchParamProps) => {
             <Button asChild type="button">
               <Link href={`/transformations/${image._id}/update`}>Update Image</Link>
             </Button>
+
+            <DeleteConfirmation imageId={image._id}/>
           </div>
         )}
       </section>
