@@ -57,17 +57,17 @@ const TransformationForm = ({
   );
   const [newTransformation, setNewTransformation] = useState<TransformationConfig | null>(null);
   const [isPending, startTransition] = useTransition();
-  const router = useRouter()
+  const router = useRouter();
 
   const initialValues =
     data && action === 'update'
       ? {
-        title: data?.title,
-        aspectRatio: data?.aspectRatio,
-        color: data?.color,
-        prompt: data?.prompt,
-        publicId: data?.publicId,
-      }
+          title: data?.title,
+          aspectRatio: data?.aspectRatio,
+          color: data?.color,
+          prompt: data?.prompt,
+          publicId: data?.publicId,
+        }
       : defaultValues;
 
   const form = useForm<FormValues>({
@@ -79,7 +79,7 @@ const TransformationForm = ({
     setIsSubmiting(true);
 
     if (!image?.publicId) {
-      console.log("No image selected");
+      console.log('No image selected');
       setIsSubmiting(false);
       return;
     }
@@ -105,20 +105,20 @@ const TransformationForm = ({
         prompt: values.prompt || '',
         color: values.color || '',
       };
-      console.log('imageData:', imageData)
+      console.log('imageData:', imageData);
 
       if (action === 'create') {
         try {
           const newImage = await addImage({
             image: imageData,
             userId,
-            path: '/'
+            path: '/',
           });
 
           if (newImage) {
-            form.reset()
-            setImage(data)
-            router.push(`/transformations/${newImage._id}`)
+            form.reset();
+            setImage(data);
+            router.push(`/transformations/${newImage._id}`);
           }
         } catch (error) {
           console.log(error);
@@ -129,14 +129,14 @@ const TransformationForm = ({
           const updatedImage = await updateImage({
             image: {
               ...imageData,
-              _id: data?._id || ''
+              _id: data?._id || '',
             },
             userId,
-            path: `/transformations/${data?._id}`
+            path: `/transformations/${data?._id}`,
           });
 
           if (updatedImage) {
-            router.push(`/transformations/${updatedImage._id}`)
+            router.push(`/transformations/${updatedImage._id}`);
           }
         } catch (error) {
           console.log(error);
@@ -144,9 +144,9 @@ const TransformationForm = ({
       }
     }
 
-    console.log('image object:', image)
+    console.log('image object:', image);
 
-    setIsSubmiting(false)
+    setIsSubmiting(false);
   }
 
   const onSelectFieldHandler = (value: string, onChangeField: (value: string) => void) => {
@@ -202,15 +202,14 @@ const TransformationForm = ({
   };
 
   useEffect(() => {
-    if(image && (type === 'restore' || type === 'removeBackground')) {
-      setNewTransformation(transformationType.config)
+    if (image && (type === 'restore' || type === 'removeBackground')) {
+      setNewTransformation(transformationType.config);
     }
-  }, [image, transformationType.config, type])
+  }, [image, transformationType.config, type]);
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-
         {creditBalance < Math.abs(creditFee) && <InsufficientCreditsModal />}
 
         <CustomField
@@ -228,7 +227,10 @@ const TransformationForm = ({
             formLabel="Aspect Ratio"
             className="w-full"
             render={({ field }) => (
-              <Select onValueChange={(value) => onSelectFieldHandler(value, field.onChange)}>
+              <Select
+                onValueChange={(value) => onSelectFieldHandler(value, field.onChange)}
+                value={field.value ? String(field.value) : undefined}
+              >
                 <SelectTrigger className="w-45">
                   <SelectValue placeholder="Select size" />
                 </SelectTrigger>
