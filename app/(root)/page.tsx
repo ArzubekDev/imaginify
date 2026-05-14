@@ -14,36 +14,33 @@ const Home = async ({ searchParams }: SearchParamProps) => {
 
   return (
     <>
-      <section className="relative overflow-hidden rounded-[32px] border border-white/10 bg-linear-to-br from-zinc-950 via-zinc-900 to-zinc-950 p-8 sm:p-8">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.25),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(168,85,247,0.18),transparent_35%)]" />
+      <section className="relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-950 px-6 py-6">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.2),transparent_40%)]" />
 
-        <div className="relative z-10 max-w-3xl">
-          <span className="mb-4 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1 text-sm text-zinc-300 backdrop-blur">
+        <div className="relative z-10">
+          <span className="mb-3 inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-0.5 text-xs text-zinc-400">
             AI Powered Image Transformations
           </span>
 
-          <h1 className="text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl">
-            Unleash Your Creative Vision with Imaginigy
+          <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+            Unleash Your Creative Vision
           </h1>
 
-          <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-400 sm:text-lg">
-            Transform, enhance and generate visually striking content with a
-            modern AI workflow designed for creators.
-          </p>
-
-          <ul className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {navLinks.slice(1, 5).map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="group rounded-2xl border border-white/10 bg-white/3 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/40 hover:bg-indigo-500/10"
+                className="group relative overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-all duration-300 hover:border-white/[0.12] hover:bg-white/[0.04]"
               >
-                <li className="flex list-none flex-col items-center gap-3 text-center">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-zinc-900 text-white shadow-lg transition-all duration-300 group-hover:bg-indigo-500">
+                {/* Bottom accent line */}
+                <span className="absolute bottom-0 left-1/2 h-[2px] w-[60%] -translate-x-1/2 scale-x-0 rounded-full bg-indigo-400 transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-x-100" />
+
+                <li className="flex list-none flex-col items-center gap-2 text-center">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 text-white transition-all duration-300 group-hover:-translate-y-[3px]">
                     {link.icon}
                   </div>
-
-                  <p className="text-sm font-medium text-zinc-200">
+                  <p className="text-xs font-medium text-zinc-400 transition-colors duration-300 group-hover:text-zinc-200">
                     {link.label}
                   </p>
                 </li>
