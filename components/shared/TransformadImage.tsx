@@ -55,7 +55,7 @@ export default function TransformadImage({ image, type, title, transformationCon
                             onError={() => {
                                 debounce(() => {
                                     setIsTransforming && setIsTransforming(false)
-                                }, 8000)
+                                }, 8000)()
                             }}
                             {...getCldProps(transformationConfig)}
                         />
@@ -64,6 +64,7 @@ export default function TransformadImage({ image, type, title, transformationCon
                             isTransforming && (
                                 <div className="">
                                     <Loader />
+                                    <p>Please wait...</p>
                                 </div>
                             )
                         }
