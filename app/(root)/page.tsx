@@ -20,6 +20,10 @@ const Home = () => {
         }
       </ul>
      </section>
+
+     <section>
+      
+     </section>
     </>
   );
 };

@@ -89,3 +89,7 @@ declare type UpdateImageParams = {
   path: string;
 };
 
+declare type SearchParamProps = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};

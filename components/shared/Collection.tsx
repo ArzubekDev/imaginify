@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '../ui/button';
 import { Pagination, PaginationContent, PaginationPrevious } from '../ui/pagination';
-import Image from 'next/image';
 import { Search } from './Search';
 
 const Collection = ({
