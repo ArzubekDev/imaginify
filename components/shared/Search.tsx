@@ -16,10 +16,9 @@ export const Search = () => {
       if (query) {
         const newURL = formUrlQuery({
           searchParams: searchParams,
-          key: query,
+          key: 'query', 
           value: query,
         });
-
         router.push(newURL, { scroll: false });
       } else {
         const newURL = removeKeyFromQuery({
@@ -29,8 +28,9 @@ export const Search = () => {
         router.push(newURL, { scroll: false });
       }
     }, 300);
+
     return () => clearTimeout(delayDebounceFn);
-  }, [router, searchParams, query]);
+  }, [query]);
 
   return (
     <div>

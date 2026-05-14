@@ -2,10 +2,13 @@ import Collection from '@/components/shared/Collection';
 import { navLinks } from '@/constants';
 import { getAllImages } from '@/lib/actions/image.actions';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 const Home = async ({ searchParams }: SearchParamProps) => {
-  const page = Number(searchParams?.page) || 1;
-  const searchQuery = (searchParams?.query as string) || '';
+  const resolvedParams = await searchParams;
+  
+  const page = Number(resolvedParams?.page) || 1;
+  const searchQuery = (resolvedParams?.query as string) || '';
 
   const images = await getAllImages({ page, searchQuery });
   return (
@@ -24,12 +27,14 @@ const Home = async ({ searchParams }: SearchParamProps) => {
       </section>
 
       <section className="sm:mt-12">
-        <Collection
-          hasSearch={true}
-          images={images?.data}
-          totalPages={images?.totalPage}
-          page={page}
-        />
+        <Suspense fallback={<div>Загрузка...</div>}>
+          <Collection
+            hasSearch={true}
+            images={images?.data}
+            totalPages={images?.totalPage}
+            page={page}
+          />
+        </Suspense>
       </section>
     </>
   );
