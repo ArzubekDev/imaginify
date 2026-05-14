@@ -1,4 +1,3 @@
-// Home.tsx
 import Collection from '@/components/shared/Collection';
 import { navLinks } from '@/constants';
 import { getAllImages } from '@/lib/actions/image.actions';
@@ -31,13 +30,13 @@ const Home = async ({ searchParams }: SearchParamProps) => {
               <Link
                 key={link.href}
                 href={link.href}
-                className="group relative overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-all duration-300 hover:border-white/[0.12] hover:bg-white/[0.04]"
+                className="group relative overflow-hidden rounded-xl border border-white/6 bg-white/2 p-4 transition-all duration-300 hover:border-white/12 hover:bg-white/4"
               >
                 {/* Bottom accent line */}
-                <span className="absolute bottom-0 left-1/2 h-[2px] w-[60%] -translate-x-1/2 scale-x-0 rounded-full bg-indigo-400 transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-x-100" />
+                <span className="absolute bottom-0 left-1/2 h-0.5 w-[60%] -translate-x-1/2 scale-x-0 rounded-full bg-indigo-400 transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-x-100" />
 
                 <li className="flex list-none flex-col items-center gap-2 text-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 text-white transition-all duration-300 group-hover:-translate-y-[3px]">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 text-white transition-all duration-300 group-hover:-translate-y-0.75">
                     {link.icon}
                   </div>
                   <p className="text-xs font-medium text-zinc-400 transition-colors duration-300 group-hover:text-zinc-200">

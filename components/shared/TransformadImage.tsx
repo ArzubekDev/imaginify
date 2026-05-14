@@ -1,3 +1,5 @@
+'use client'
+
 import { dataURL, debounce, getImageSize } from "@/lib/utils";
 import { DownloadCloud, Loader } from "lucide-react";
 import { CldImage } from "next-cloudinary";
