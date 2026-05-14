@@ -4,12 +4,13 @@ import React from 'react';
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-<main className="flex flex-col md:flex-row min-h-screen">
-  <MobileNav/>
-  <Sidebar/>
-  
-  <div className="flex-1">
-    <div className="w-[90%] mx-auto py-12">
+<main className="flex min-h-screen bg-[#0f0f11] text-white">
+  <Sidebar />
+
+  <div className="flex-1 overflow-x-hidden">
+    <MobileNav />
+
+    <div className="mx-auto w-full max-w-7xl px-6 py-10 lg:px-10">
       {children}
     </div>
   </div>

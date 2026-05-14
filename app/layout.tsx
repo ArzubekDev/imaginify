@@ -24,7 +24,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn(IBMPlex.className, 'antialiased')}>
-      <body className="min-h-full flex flex-col"><ClerkProvider>
+      <body className="min-h-full flex flex-col">
+        <ClerkProvider>
           {children}
           <Toaster richColors closeButton />
         </ClerkProvider></body>
