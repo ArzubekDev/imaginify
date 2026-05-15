@@ -50,8 +50,8 @@ export async function POST(request: Request) {
       email: email_addresses[0].email_address,
       username: username!,
       photo: image_url,
-      firstName: first_name,
-      lastName: last_name,
+      firstName: first_name ?? '',
+      lastName: last_name ?? '',
     };
 
     const newUser = await createUser(user);
