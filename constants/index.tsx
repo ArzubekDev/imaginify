@@ -141,3 +141,42 @@ export const aspectRatioOptions = {
     height: 1778
   },
 };
+
+export const plans = [
+  {
+    name: "Free",
+    icon: "🆓",
+    price: 0,
+    credits: 20,
+    inclusions: [
+      { label: "20 Free Credits", isIncluded: true },
+      { label: "Basic Access to Services", isIncluded: true },
+      { label: "Priority Customer Support", isIncluded: false },
+      { label: "Priority Updates", isIncluded: false },
+    ],
+  },
+  {
+    name: "Pro Package",
+    icon: "💎",
+    price: 40,
+    credits: 120,
+    inclusions: [
+      { label: "120 Credits", isIncluded: true },
+      { label: "Full Access to Services", isIncluded: true },
+      { label: "Priority Customer Support", isIncluded: true },
+      { label: "Priority Updates", isIncluded: false },
+    ],
+  },
+  {
+    name: "Premium Package",
+    icon: "🚀",
+    price: 199,
+    credits: 2000,
+    inclusions: [
+      { label: "2000 Credits", isIncluded: true },
+      { label: "Full Access to Services", isIncluded: true },
+      { label: "Priority Customer Support", isIncluded: true },
+      { label: "Priority Updates", isIncluded: true },
+    ],
+  },
+];
