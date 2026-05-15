@@ -96,7 +96,7 @@ const ImageDetails = async ({ params }: SearchParamProps) => {
 
         {/* Actions */}
         {userId === image.author.clerkId && (
-          <div className="flex items-center gap-3 pt-2">
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Button
               asChild
               className="flex items-center gap-2 rounded-xl bg-purple-600 px-5 text-sm font-medium text-white hover:bg-purple-700"
