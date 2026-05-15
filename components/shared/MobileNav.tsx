@@ -14,8 +14,7 @@ const MobileNav = () => {
 
   return (
     <header className="flex items-center justify-between md:hidden w-full bg-[#0f0f1a] p-4 border-b border-white/10">
-      
-      {/* Лого — не трогаем */}
+
       <Link href="/" className="flex items-center gap-3 px-2">
         <div className="flex h-10.5 w-10.5 items-center justify-center rounded-[14px] bg-[#1e1b4b]">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -45,16 +44,23 @@ const MobileNav = () => {
             <SheetContent className="bg-[#0f0f1a] border-l border-white/10 sm:w-64">
               <SheetHeader>
                 <SheetTitle className="hidden">Navigation Menu</SheetTitle>
-                <Image
-                  src="/images/logo.png"
-                  alt="Logo"
-                  width={120}
-                  height={40}
-                  priority
-                  className="w-20 h-16"
-                />
+                     <Link href="/" className="flex items-center gap-3 px-2">
+        <div className="flex h-10.5 w-10.5 items-center justify-center rounded-[14px] bg-[#1e1b4b]">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M12 3 L13.5 10 L20 12 L13.5 14 L12 21 L10.5 14 L4 12 L10.5 10 Z"
+              fill="#c4b5fd"
+              stroke="#7c3aed"
+              strokeWidth="0.5"
+            />
+          </svg>
+        </div>
+        <div>
+          <h1 className="text-lg font-bold tracking-[-0.4px] text-white">IMAGINIFY</h1>
+          <p className="text-[10px] font-medium tracking-[0.15em] text-[#6d28d9] uppercase">Creative AI</p>
+        </div>
+      </Link>
               </SheetHeader>
-
               <nav className="px-4 mt-2">
                 <ul className="flex flex-col gap-1">
                   {navLinks.map((item) => {

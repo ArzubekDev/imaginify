@@ -1,4 +1,3 @@
-// TransformedImage.tsx
 'use client'
 
 import { dataURL, debounce, download, getImageSize } from "@/lib/utils";
@@ -41,9 +40,7 @@ export default function TransformedImage({
         {hasDownload && (
           <button
             onClick={downloadHandler}
-            className="flex items-center gap-1.5 rounded-lg border border-white/10
-              bg-white/5 px-3 py-1.5 text-xs font-medium text-white/70
-              hover:bg-white/10 hover:text-white transition-all duration-200"
+            className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/70 hover:bg-white/10 hover:text-white transition-all duration-200"
           >
             <Download className="h-3.5 w-3.5" />
             Download
@@ -69,8 +66,7 @@ export default function TransformedImage({
           />
 
           {isTransforming && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center
-              gap-2 rounded-xl bg-black/60 backdrop-blur-sm">
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-xl bg-black/60 backdrop-blur-sm">
               <Loader2 className="h-8 w-8 animate-spin text-purple-400" />
               <p className="text-sm font-medium text-white/70">Please wait...</p>
             </div>
