@@ -93,3 +93,20 @@ declare type SearchParamProps = {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
+
+declare type CheckoutTransactionParams = {
+  plan: string;
+  credits: number;
+  amount: number;
+  buyerId: string;
+};
+
+
+declare type CreateTransactionParams = {
+  stripeId: string;
+  amount: number;
+  plan: string;
+  credits: number;
+  buyerId: string;
+  createdAt: Date;
+};
