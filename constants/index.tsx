@@ -54,7 +54,7 @@ export const navLinks: TNavLink[] = [
   },
   {
     label: 'Buy Credits',
-    href: '/buy-credits',
+    href: '/credits',
     icon: <ShoppingBag />,
   },
 ];
