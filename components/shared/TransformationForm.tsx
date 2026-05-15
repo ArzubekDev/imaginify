@@ -26,6 +26,8 @@ import CustomField from './CustomField';
 import { InsufficientCreditsModal } from './InsufficientCreditsModal';
 import MediaUploader from './MediaUploader';
 import TransformadImage from './TransformadImage';
+import { Loader2 } from 'lucide-react';
+import TransformedImage from './TransformadImage';
 
 export const formSchema = z.object({
   title: z.string(),
@@ -213,121 +215,155 @@ const TransformationForm = ({
   }, [image, transformationType.config, type]);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        {creditBalance < Math.abs(creditFee) && <InsufficientCreditsModal />}
+<Form {...form}>
+  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+    {creditBalance < Math.abs(creditFee) && <InsufficientCreditsModal />}
 
+    {/* Title */}
+    <CustomField
+      control={form.control}
+      name="title"
+      formLabel="Title"
+      render={({ field }) => (
+        <Input
+          {...field}
+          className="bg-white/5 border-white/10 text-white placeholder:text-white/25
+            focus:border-purple-500/50 focus:ring-0 rounded-xl"
+        />
+      )}
+      className="w-full"
+    />
+
+    {/* Aspect Ratio */}
+    {type === 'fill' && (
+      <CustomField
+        control={form.control}
+        name="aspectRatio"
+        formLabel="Aspect Ratio"
+        className="w-full"
+        render={({ field }) => (
+          <Select
+            onValueChange={(value) => onSelectFieldHandler(value, field.onChange)}
+            value={field.value ? String(field.value) : undefined}
+          >
+            <SelectTrigger className="w-full bg-white/5 border-white/10 text-white
+              focus:border-purple-500/50 rounded-xl">
+              <SelectValue placeholder="Select size" />
+            </SelectTrigger>
+            <SelectContent className="bg-[#1a1a2e] border-white/10 text-white">
+              {Object.keys(aspectRatioOptions).map((key) => (
+                <SelectItem
+                  key={key}
+                  value={key}
+                  className="focus:bg-white/10 focus:text-white"
+                >
+                  {aspectRatioOptions[key as AspectRatioKey].label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
+      />
+    )}
+
+    {(type === 'remove' || type === 'recolor') && (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <CustomField
           control={form.control}
-          name="title"
-          formLabel="Title"
-          render={({ field }) => <Input {...field} className="input" />}
+          name="prompt"
+          formLabel={type === 'remove' ? 'Object to remove' : 'Object to recolor'}
           className="w-full"
+          render={({ field }) => (
+            <Input
+              value={field.value}
+              onChange={(e) =>
+                onInputChangeHandler('prompt', e.target.value, type, field.onChange)
+              }
+              className="bg-white/5 border-white/10 text-white placeholder:text-white/25
+                focus:border-purple-500/50 focus:ring-0 rounded-xl"
+            />
+          )}
         />
-
-        {type === 'fill' && (
+        {type === 'recolor' && (
           <CustomField
             control={form.control}
-            name="aspectRatio"
-            formLabel="Aspect Ratio"
+            name="color"
+            formLabel="Replacement Color"
             className="w-full"
             render={({ field }) => (
-              <Select
-                onValueChange={(value) => onSelectFieldHandler(value, field.onChange)}
-                value={field.value ? String(field.value) : undefined}
-              >
-                <SelectTrigger className="w-45">
-                  <SelectValue placeholder="Select size" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.keys(aspectRatioOptions).map((key) => (
-                    <SelectItem key={key} value={key}>
-                      {aspectRatioOptions[key as AspectRatioKey].label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            )}
-          />
-        )}
-
-        {(type === 'remove' || type === 'recolor') && (
-          <div className="space-y-6">
-            <CustomField
-              control={form.control}
-              name="prompt"
-              formLabel={type === 'remove' ? 'Object to remove' : 'Object to recolor'}
-              className="w-full"
-              render={({ field }) => (
-                <Input
-                  value={field.value}
-                  onChange={(e) =>
-                    onInputChangeHandler('prompt', e.target.value, type, field.onChange)
-                  }
-                />
-              )}
-            />
-
-            {type === 'recolor' && (
-              <CustomField
-                control={form.control}
-                name="color"
-                formLabel="Replacement Color"
-                className="w-full"
-                render={({ field }) => (
-                  <Input
-                    value={field.value}
-                    onChange={(e) =>
-                      onInputChangeHandler('color', e.target.value, 'recolor', field.onChange)
-                    }
-                  />
-                )}
-              />
-            )}
-          </div>
-        )}
-
-        <div className="flex">
-          <CustomField
-            control={form.control}
-            name="publicId"
-            className="flex size-full flex-col w-full"
-            render={({ field }) => (
-              <MediaUploader
-                onValueChange={field.onChange}
-                setImage={handleSetImage}
-                publicId={String(field.value || '')}
-                image={image}
-                type={type}
+              <Input
+                value={field.value}
+                onChange={(e) =>
+                  onInputChangeHandler('color', e.target.value, 'recolor', field.onChange)
+                }
+                className="bg-white/5 border-white/10 text-white placeholder:text-white/25
+                  focus:border-purple-500/50 focus:ring-0 rounded-xl"
               />
             )}
           />
+        )}
+      </div>
+    )}
 
-          <TransformadImage
+    {/* Upload + Preview side by side */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <CustomField
+        control={form.control}
+        name="publicId"
+        className="flex size-full flex-col"
+        render={({ field }) => (
+          <MediaUploader
+            onValueChange={field.onChange}
+            setImage={handleSetImage}
+            publicId={String(field.value || '')}
             image={image}
             type={type}
-            title={form.getValues().title}
-            transformationConfig={transformationConfig}
-            isTransforming={isTransforming}
-            setIsTransforming={setIsTransforming}
           />
-        </div>
+        )}
+      />
+      <TransformedImage
+        image={image}
+        type={type}
+        title={form.getValues().title}
+        transformationConfig={transformationConfig}
+        isTransforming={isTransforming}
+        setIsTransforming={setIsTransforming}
+      />
+    </div>
 
-        <div className="flex flex-col gap-2">
-          <Button
-            className="capitalize"
-            type="button"
-            disabled={isTransforming || newTransformation === null}
-            onClick={onTransformHandler}
-          >
-            {isTransforming ? 'Transforming...' : 'Apply transformation'}
-          </Button>
-          <Button className="capitalize" type="submit" disabled={isSubmiting}>
-            {isSubmiting ? 'Submiting...' : 'Save Image'}
-          </Button>
-        </div>
-      </form>
-    </Form>
+    {/* Actions */}
+    <div className="flex flex-col gap-3">
+      <Button
+        type="button"
+        disabled={isTransforming || newTransformation === null}
+        onClick={onTransformHandler}
+        className="w-full capitalize bg-purple-600 hover:bg-purple-700 text-white
+          rounded-xl disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+      >
+        {isTransforming ? (
+          <span className="flex items-center gap-2">
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Transforming...
+          </span>
+        ) : 'Apply Transformation'}
+      </Button>
+
+      <Button
+        type="submit"
+        disabled={isSubmiting}
+        className="w-full capitalize bg-white/10 hover:bg-white/15 text-white
+          border border-white/10 rounded-xl disabled:opacity-40 transition-colors"
+      >
+        {isSubmiting ? (
+          <span className="flex items-center gap-2">
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Saving...
+          </span>
+        ) : 'Save Image'}
+      </Button>
+    </div>
+  </form>
+</Form>
   );
 };
 

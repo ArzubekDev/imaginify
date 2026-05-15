@@ -1,3 +1,4 @@
+// MediaUploader.tsx
 import { dataURL, getImageSize } from '@/lib/utils';
 import { Plus } from 'lucide-react';
 import { CldImage, CldUploadWidget } from 'next-cloudinary';
@@ -13,7 +14,6 @@ type MediaUploaderProps = {
 };
 
 const MediaUploader = ({ onValueChange, setImage, image, publicId, type }: MediaUploaderProps) => {
-
   const onUploadSuccessHandler = (result: any) => {
     setImage((prevState: any) => ({
       ...prevState,
@@ -22,9 +22,7 @@ const MediaUploader = ({ onValueChange, setImage, image, publicId, type }: Media
       height: result?.info?.height,
       secureURL: result?.info?.secure_url,
     }));
-
     onValueChange(result?.info?.public_id);
-
     toast.success('Image uploaded successfully!', {
       description: '1 credit was deducted from your account',
       duration: 5000,
@@ -39,36 +37,40 @@ const MediaUploader = ({ onValueChange, setImage, image, publicId, type }: Media
       className: 'error-toast',
     });
   };
+
   return (
     <CldUploadWidget
       uploadPreset="jsm_imaginify"
-      options={{
-        multiple: false,
-        resourceType: 'image',
-      }}
+      options={{ multiple: false, resourceType: 'image' }}
       onSuccess={onUploadSuccessHandler}
       onError={onUploadErrorHandler}
     >
       {({ open }) => (
-        <div className="flex flex-col gap-4">
-          <h3>Original</h3>
+        <div className="flex flex-col gap-3 w-full">
+          <h3 className="text-[11px] font-semibold tracking-[0.14em] uppercase text-white/40">
+            Original
+          </h3>
           {publicId ? (
-            <div className="cursor-pointer overflow-hidden rounded-sm">
+            <div className="cursor-pointer overflow-hidden rounded-xl border border-white/10">
               <CldImage
                 width={getImageSize(type, image, 'width')}
                 height={getImageSize(type, image, 'height')}
                 src={publicId}
                 alt="image"
-                sizes={'(max-width: 767px) 100vw, 50vw'}
+                sizes="(max-width: 767px) 100vw, 50vw"
                 placeholder={dataURL as PlaceholderValue}
+                className="w-full object-cover"
               />
             </div>
           ) : (
-            <div onClick={() => open()}>
-              <div className="cursor-pointer w-full shadow-2xl rounded-sm flex flex-col items-center justify-center">
-                <Plus className="w-6 h-6 bg-blue-500 rounded-sm text-white p-1" />
-                <p className="font-medium">Click here to upload image</p>
+            <div
+              onClick={() => open()}
+              className="flex flex-col items-center justify-center gap-3 w-full min-h-48 rounded-xl border border-dashed border-white/15 bg-white/5 hover:bg-white/8 hover:border-purple-500/50 cursor-pointer transition-all duration-200"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/20">
+                <Plus className="h-5 w-5 text-purple-400" />
               </div>
+              <p className="text-sm font-medium text-white/50">Click here to upload image</p>
             </div>
           )}
         </div>

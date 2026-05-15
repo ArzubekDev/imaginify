@@ -13,13 +13,6 @@ import {
   Path,
 } from 'react-hook-form';
 
-// type CustomFieldProps = {
-//     control: Control<z.infer<typeof formSchema>> | undefined;
-//     render: (props: {field: unknown }) => React.ReactNode;
-//     name: keyof z.infer<typeof formSchema>;
-//     formLabel?: string;
-//     className?: string;
-// }
 
 type CustomFieldProps<T extends FieldValues> = {
   control: Control<T>;
@@ -55,7 +48,6 @@ const CustomField = <T extends FieldValues>({
            {render({field})}
           </FormControl>
 
-          {/* <FormDescription>Provide a concise title for your bug report.</FormDescription> */}
           <FormMessage />
         </FormItem>
       )}
