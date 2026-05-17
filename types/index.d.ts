@@ -103,7 +103,7 @@ declare type CheckoutTransactionParams = {
 
 
 declare type CreateTransactionParams = {
-  stripeId: string;
+  stripedId: string;
   amount: number;
   plan: string;
   credits: number;

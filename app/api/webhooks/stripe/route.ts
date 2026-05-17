@@ -22,7 +22,7 @@ export async function POST(request: Request){
         const {id, amount_total, metadata} = event.data.object;
 
         const transaction = {
-            stripeId: id,
+            stripedId: id,
             amount: amount_total ? amount_total / 100 : 0,
             plan: metadata?.plan || '',
             credits: Number(metadata?.credits) || 0,
