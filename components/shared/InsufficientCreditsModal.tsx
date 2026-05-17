@@ -19,18 +19,18 @@ export function InsufficientCreditsModal() {
         <AlertDialog defaultOpen> 
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Недостаточно кредитов</AlertDialogTitle>
+                    <AlertDialogTitle>Insufficient Credits</AlertDialogTitle>
                     <AlertDialogDescription>
-                        У вас недостаточно кредитов для выполнения этой операции.
-                        Пожалуйста, пополните баланс.
+                       You don't have enough credits to perform this action.
+                       Please top up your balance.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel onClick={() => router.back()}>
-                        Отмена
+                         Cancel
                     </AlertDialogCancel>
                     <AlertDialogAction onClick={() => router.push('/credits')}>
-                        Купить кредиты
+                         Buy Credits
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
