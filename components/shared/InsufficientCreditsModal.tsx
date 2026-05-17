@@ -9,30 +9,29 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-    AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 
 export function InsufficientCreditsModal() {
     const router = useRouter()
-    
+
     return (
-        <AlertDialog>
-            <AlertDialogTrigger asChild>
-                <Button variant="outline">Show Dialog</Button>
-            </AlertDialogTrigger>
+        <AlertDialog defaultOpen> 
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogTitle>Недостаточно кредитов</AlertDialogTitle>
                     <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete your
-                        account from our servers.
+                        У вас недостаточно кредитов для выполнения этой операции.
+                        Пожалуйста, пополните баланс.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>Continue</AlertDialogAction>
+                    <AlertDialogCancel onClick={() => router.back()}>
+                        Отмена
+                    </AlertDialogCancel>
+                    <AlertDialogAction onClick={() => router.push('/credits')}>
+                        Купить кредиты
+                    </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
